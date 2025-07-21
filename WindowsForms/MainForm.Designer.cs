@@ -110,6 +110,7 @@ namespace WindowsForms
 			this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
 			this.notifyIcon.Text = "notifyIcon";
 			this.notifyIcon.Visible = true;
+			this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
 			// 
 			// cmMainMenu
 			// 
@@ -135,6 +136,7 @@ namespace WindowsForms
 			this.cmTopmost.Name = "cmTopmost";
 			this.cmTopmost.Size = new System.Drawing.Size(168, 22);
 			this.cmTopmost.Text = "Topmost";
+			this.cmTopmost.CheckedChanged += new System.EventHandler(this.cmTopmost_CheckedChanged);
 			// 
 			// cmShowControls
 			// 
@@ -142,6 +144,7 @@ namespace WindowsForms
 			this.cmShowControls.Name = "cmShowControls";
 			this.cmShowControls.Size = new System.Drawing.Size(168, 22);
 			this.cmShowControls.Text = "Show controls";
+			this.cmShowControls.CheckedChanged += new System.EventHandler(this.cmShowControls_CheckedChanged);
 			// 
 			// cmDebugConsole
 			// 
@@ -149,6 +152,7 @@ namespace WindowsForms
 			this.cmDebugConsole.Name = "cmDebugConsole";
 			this.cmDebugConsole.Size = new System.Drawing.Size(168, 22);
 			this.cmDebugConsole.Text = "Console";
+			this.cmDebugConsole.CheckedChanged += new System.EventHandler(this.cmDebugConsole_CheckedChanged);
 			// 
 			// toolStripSeparator1
 			// 
@@ -214,6 +218,7 @@ namespace WindowsForms
 			this.DoubleBuffered = true;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Clock";
 			this.cmMainMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
