@@ -8,15 +8,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.IO;
+using System.Drawing.Text;
 
 namespace WindowsForms
 {
 	public partial class MainForm : Form
 	{
+		private PrivateFontCollection fontCollection;
 		public MainForm()
 		{
 			InitializeComponent();
 			ShowControls(cmShowControls.Checked);
+
+			string[] asFontList;
+			if (Directory.Exists("Fonts"))
+			{
+				fontCollection = new PrivateFontCollection();
+				asFontList = Directory.GetFiles("Fonts");
+				foreach (string item in asFontList)
+				{
+					cmFont.DropDownItems.Add(item);
+					fontCollection.AddFontFile(item);
+				}
+			}
 		}
 		void ShowControls(bool visible)
 		{
@@ -83,6 +98,11 @@ namespace WindowsForms
 			if (this.TopMost) return;
 			this.TopMost = true;
 			this.TopMost = false;
+		}
+
+		private void cmFont_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+		{
+			labelCurrentTime.Font = new Font(fontCollection.Families[cmFont.DropDownItems.IndexOf(e.ClickedItem)], 32);
 		}
 	}
 }
