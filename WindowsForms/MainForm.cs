@@ -102,7 +102,26 @@ namespace WindowsForms
 
 		private void cmFont_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
 		{
-			labelCurrentTime.Font = new Font(fontCollection.Families[cmFont.DropDownItems.IndexOf(e.ClickedItem)], 32);
+			if (cmFont.DropDownItems.IndexOf(e.ClickedItem) > 0)
+				labelCurrentTime.Font = new Font(fontCollection.Families[cmFont.DropDownItems.IndexOf(e.ClickedItem) - 1], labelCurrentTime.Font.Size);
+		}
+
+		private void defaultFontsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (fontDialog.ShowDialog() != DialogResult.Cancel)
+				labelCurrentTime.Font = fontDialog.Font;
+		}
+
+		private void cmForeColor_Click(object sender, EventArgs e)
+		{
+			if (colorDialog.ShowDialog() != DialogResult.Cancel)
+				labelCurrentTime.ForeColor = colorDialog.Color;
+		}
+
+		private void cmBackColor_Click(object sender, EventArgs e)
+		{
+			if (colorDialog.ShowDialog() != DialogResult.Cancel)
+				labelCurrentTime.BackColor = colorDialog.Color;
 		}
 	}
 }

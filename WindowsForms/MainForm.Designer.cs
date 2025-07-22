@@ -50,6 +50,9 @@ namespace WindowsForms
 			this.cbShowWeekDay = new System.Windows.Forms.CheckBox();
 			this.btnHideControls = new System.Windows.Forms.Button();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+			this.defaultFontsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.fontDialog = new System.Windows.Forms.FontDialog();
+			this.colorDialog = new System.Windows.Forms.ColorDialog();
 			this.cmMainMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -132,6 +135,8 @@ namespace WindowsForms
 			// 
 			// cmFont
 			// 
+			this.cmFont.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.defaultFontsToolStripMenuItem});
 			this.cmFont.Name = "cmFont";
 			this.cmFont.Size = new System.Drawing.Size(180, 22);
 			this.cmFont.Text = "Font";
@@ -142,12 +147,14 @@ namespace WindowsForms
 			this.cmBackColor.Name = "cmBackColor";
 			this.cmBackColor.Size = new System.Drawing.Size(180, 22);
 			this.cmBackColor.Text = "Background color";
+			this.cmBackColor.Click += new System.EventHandler(this.cmBackColor_Click);
 			// 
 			// cmForeColor
 			// 
 			this.cmForeColor.Name = "cmForeColor";
 			this.cmForeColor.Size = new System.Drawing.Size(180, 22);
 			this.cmForeColor.Text = "Foreground color";
+			this.cmForeColor.Click += new System.EventHandler(this.cmForeColor_Click);
 			// 
 			// toolStripSeparator3
 			// 
@@ -207,6 +214,13 @@ namespace WindowsForms
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
 			// 
+			// defaultFontsToolStripMenuItem
+			// 
+			this.defaultFontsToolStripMenuItem.Name = "defaultFontsToolStripMenuItem";
+			this.defaultFontsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.defaultFontsToolStripMenuItem.Text = "Default fonts";
+			this.defaultFontsToolStripMenuItem.Click += new System.EventHandler(this.defaultFontsToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,6 +262,9 @@ namespace WindowsForms
 		private System.Windows.Forms.ToolStripMenuItem cmForeColor;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 		private System.Windows.Forms.ToolStripMenuItem cmClose;
+		private System.Windows.Forms.ToolStripMenuItem defaultFontsToolStripMenuItem;
+		private System.Windows.Forms.FontDialog fontDialog;
+		private System.Windows.Forms.ColorDialog colorDialog;
 	}
 }
 
