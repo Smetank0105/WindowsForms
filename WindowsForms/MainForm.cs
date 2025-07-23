@@ -14,12 +14,15 @@ namespace WindowsForms
 {
 	public partial class MainForm : Form
 	{
+		ChooseFont chooseFont;
 		ColorDialog cdBackColor;
 		ColorDialog cdForeColor;
 		public MainForm()
 		{
 			InitializeComponent();
 			ShowControls(cmShowControls.Checked);
+			ShowConsole(cmDebugConsole.Checked = true);
+			chooseFont = new ChooseFont();
 			cdBackColor = new ColorDialog();
 			cdForeColor = new ColorDialog();
 		}
@@ -110,6 +113,12 @@ namespace WindowsForms
 		{
 			if (cdForeColor.ShowDialog() != DialogResult.Cancel)
 				labelCurrentTime.ForeColor = cdForeColor.Color;
+		}
+
+		private void cmFont_Click(object sender, EventArgs e)
+		{
+			chooseFont.ShowDialog();
+			labelCurrentTime.Font = chooseFont.Font;
 		}
 	}
 }

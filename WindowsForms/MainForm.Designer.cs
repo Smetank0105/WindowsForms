@@ -139,6 +139,7 @@ namespace WindowsForms
 			this.cmFont.Name = "cmFont";
 			this.cmFont.Size = new System.Drawing.Size(180, 22);
 			this.cmFont.Text = "Font";
+			this.cmFont.Click += new System.EventHandler(this.cmFont_Click);
 			// 
 			// cmBackColor
 			// 
