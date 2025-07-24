@@ -15,6 +15,7 @@ namespace WindowsForms
 	public partial class ChooseFont : Form
 	{
 		public Font Font { get; set; }
+		PrivateFontCollection pfc;
 		public ChooseFont()
 		{
 			InitializeComponent();
@@ -35,7 +36,7 @@ namespace WindowsForms
 		}
 		void SetFont(string filename, float size = 32)
 		{
-			PrivateFontCollection pfc = new PrivateFontCollection();
+			pfc = new PrivateFontCollection();
 			pfc.AddFontFile(filename);
 			lblExample.Font = new Font(pfc.Families[0], size);
 		}

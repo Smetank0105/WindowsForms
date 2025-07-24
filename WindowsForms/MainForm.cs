@@ -17,11 +17,15 @@ namespace WindowsForms
 		ChooseFont chooseFont;
 		ColorDialog cdBackColor;
 		ColorDialog cdForeColor;
+
+		bool lbl_mouse_press = false;
+		Point cursorStartPoint;
+		Point lblStartPoint;
 		public MainForm()
 		{
 			InitializeComponent();
 			ShowControls(cmShowControls.Checked);
-			ShowConsole(cmDebugConsole.Checked = true);
+			//ShowConsole(cmDebugConsole.Checked = true);
 			chooseFont = new ChooseFont();
 			cdBackColor = new ColorDialog();
 			cdForeColor = new ColorDialog();
@@ -102,6 +106,15 @@ namespace WindowsForms
 		{
 			cbShowWeekDay.Checked = cmShowDate.Checked;
 		}
+		private void cbShowDate_CheckedChanged(object sender, EventArgs e)
+		{
+			cmShowDate.Checked = cbShowDate.Checked;
+		}
+
+		private void cbShowWeekDay_CheckedChanged(object sender, EventArgs e)
+		{
+			cmShowWeekDay.Checked = cbShowWeekDay.Checked;
+		}
 
 		private void cmBackColor_Click(object sender, EventArgs e)
 		{
@@ -120,5 +133,51 @@ namespace WindowsForms
 			chooseFont.ShowDialog();
 			labelCurrentTime.Font = chooseFont.Font;
 		}
+
+		private void MainForm_Load(object sender, EventArgs e)
+		{
+			cmTopmost.Checked = Properties.Settings.Default.TopMost;
+			cmShowDate.Checked = Properties.Settings.Default.ShowDate;
+			cmShowWeekDay.Checked = Properties.Settings.Default.ShowWeekDay;
+			this.Location = Properties.Settings.Default.StartPosition;
+			labelCurrentTime.BackColor = Properties.Settings.Default.BackColor;
+			labelCurrentTime.ForeColor = Properties.Settings.Default.ForeColor;
+			labelCurrentTime.Font = Properties.Settings.Default.Font;
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Properties.Settings.Default.TopMost = this.TopMost;
+			Properties.Settings.Default.ShowDate = cbShowDate.Checked;
+			Properties.Settings.Default.ShowWeekDay = cbShowWeekDay.Checked;
+			Properties.Settings.Default.StartPosition = this.Location;
+			Properties.Settings.Default.BackColor = labelCurrentTime.BackColor;
+			Properties.Settings.Default.ForeColor = labelCurrentTime.ForeColor;
+			Properties.Settings.Default.Font = labelCurrentTime.Font;
+			Properties.Settings.Default.Save();
+		}
+
+		private void labelCurrentTime_MouseDown(object sender, MouseEventArgs e)
+		{
+			lbl_mouse_press = true;
+			cursorStartPoint = Cursor.Position;
+			lblStartPoint = this.Location;
+		}
+
+		private void labelCurrentTime_MouseMove(object sender, MouseEventArgs e)
+		{
+			if(lbl_mouse_press)
+			{
+				Point cursorOffsetPoint = new Point(Cursor.Position.X - cursorStartPoint.X, Cursor.Position.Y - cursorStartPoint.Y);
+				this.Location = new Point(lblStartPoint.X + cursorOffsetPoint.X, lblStartPoint.Y + cursorOffsetPoint.Y);
+			}
+		}
+
+		private void labelCurrentTime_MouseUp(object sender, MouseEventArgs e)
+		{
+			lbl_mouse_press = false;
+			cursorStartPoint = Point.Empty;
+		}
+
 	}
 }
