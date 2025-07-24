@@ -104,7 +104,7 @@ namespace WindowsForms
 
 		private void cmShowWeekDay_CheckedChanged(object sender, EventArgs e)
 		{
-			cbShowWeekDay.Checked = cmShowDate.Checked;
+			cbShowWeekDay.Checked = cmShowWeekDay.Checked;
 		}
 		private void cbShowDate_CheckedChanged(object sender, EventArgs e)
 		{
