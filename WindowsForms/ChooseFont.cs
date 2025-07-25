@@ -15,12 +15,20 @@ namespace WindowsForms
 	public partial class ChooseFont : Form
 	{
 		public Font Font { get; set; }
+		public string Filename { get; set; }
 		public ChooseFont()
 		{
 			InitializeComponent();
 			comboBoxChooseFont.Items.AddRange(GetFontListFromCurrentDirectoryByExtention("*.ttf"));
 			comboBoxChooseFont.Items.AddRange(GetFontListFromCurrentDirectoryByExtention("*.otf"));
 			comboBoxChooseFont.SelectedIndex = 0;
+		}
+		public ChooseFont(MainForm parent, string font_name, int font_size):this()
+		{
+			nudFontSize.Value = font_size;
+			comboBoxChooseFont.SelectedIndex = comboBoxChooseFont.FindStringExact(font_name);
+			Font = lblExample.Font;
+			Filename = font_name;
 		}
 		string[] GetFontListFromCurrentDirectoryByExtention(string extention)
 		{
@@ -42,12 +50,13 @@ namespace WindowsForms
 
 		private void comboBoxChooseFont_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			SetFont((sender as ComboBox).SelectedItem.ToString());
+			if((sender as ComboBox).SelectedItem != null)SetFont((sender as ComboBox).SelectedItem.ToString());
 		}
 
 		private void btnOk_Click(object sender, EventArgs e)
 		{
 			Font = lblExample.Font;
+			Filename = comboBoxChooseFont.SelectedItem.ToString();
 		}
 
 		private void nudFontSize_ValueChanged(object sender, EventArgs e)

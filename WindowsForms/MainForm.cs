@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
+using Microsoft.Win32;
 
 namespace WindowsForms
 {
@@ -25,6 +26,7 @@ namespace WindowsForms
 			chooseFont = new ChooseFont();
 			cdBackColor = new ColorDialog();
 			cdForeColor = new ColorDialog();
+			LoadSettings();
 		}
 		void ShowControls(bool visible)
 		{
@@ -40,6 +42,46 @@ namespace WindowsForms
 		{
 			if (visible) AllocConsole();
 			else FreeConsole();
+		}
+		void SaveSettings()
+		{
+			StreamWriter settings = new StreamWriter("Settings.ini");
+			settings.WriteLine($"{this.Location.X}x{this.Location.Y}");
+			settings.WriteLine(cmTopmost.Checked);
+			settings.WriteLine(cmShowControls.Checked);
+			settings.WriteLine(cmDebugConsole.Checked);
+			settings.WriteLine(cmShowDate.Checked);
+			settings.WriteLine(cmShowWeekDay.Checked);
+			settings.WriteLine(cmLoadOnWindowsStartup.Checked);
+			settings.WriteLine(cdBackColor.Color.ToArgb());
+			settings.WriteLine(cdForeColor.Color.ToArgb());
+			settings.WriteLine(chooseFont.Filename);
+			settings.Close();
+		}
+		void LoadSettings()
+		{
+			StreamReader settings = new StreamReader("Settings.ini");
+			if (!settings.EndOfStream)
+			{
+				string location = settings.ReadLine();
+				this.Location = new Point
+					(
+					Convert.ToInt32(location.Split('x').First()),
+					Convert.ToInt32(location.Split('x').Last())
+					);
+				cmTopmost.Checked = bool.Parse(settings.ReadLine());
+				cmShowControls.Checked = bool.Parse(settings.ReadLine());
+				cmDebugConsole.Checked = bool.Parse(settings.ReadLine());
+				cmShowDate.Checked = bool.Parse(settings.ReadLine());
+				cmShowWeekDay.Checked = bool.Parse(settings.ReadLine());
+				cmLoadOnWindowsStartup.Checked = bool.Parse(settings.ReadLine());
+				cdBackColor.Color = labelCurrentTime.BackColor = Color.FromArgb(Convert.ToInt32(settings.ReadLine()));
+				cdForeColor.Color = labelCurrentTime.ForeColor = Color.FromArgb(Convert.ToInt32(settings.ReadLine()));
+				string font_name = settings.ReadLine();
+				chooseFont = new ChooseFont(this, font_name, 32);
+				labelCurrentTime.Font = chooseFont.Font;
+			}
+			settings.Close();
 		}
 		private void timer_Tick(object sender, EventArgs e)
 		{
@@ -119,6 +161,20 @@ namespace WindowsForms
 		{
 			chooseFont.ShowDialog();
 			labelCurrentTime.Font = chooseFont.Font;
+		}
+
+		private void cmLoadOnWindowsStartup_CheckedChanged(object sender, EventArgs e)
+		{
+			string key_name = "Clock_PD_411";
+			RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+			if (cmLoadOnWindowsStartup.Checked) key.SetValue(key_name, Application.ExecutablePath);
+			else key.DeleteValue(key_name, false);
+			key.Dispose();
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			SaveSettings();
 		}
 	}
 }
