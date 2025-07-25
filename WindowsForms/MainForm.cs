@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
+using Microsoft.Win32;
 
 namespace WindowsForms
 {
@@ -17,18 +18,15 @@ namespace WindowsForms
 		ChooseFont chooseFont;
 		ColorDialog cdBackColor;
 		ColorDialog cdForeColor;
-
-		bool lbl_mouse_press = false;
-		Point cursorStartPoint;
-		Point lblStartPoint;
 		public MainForm()
 		{
 			InitializeComponent();
 			ShowControls(cmShowControls.Checked);
-			//ShowConsole(cmDebugConsole.Checked = true);
+			ShowConsole(cmDebugConsole.Checked = true);
 			chooseFont = new ChooseFont();
 			cdBackColor = new ColorDialog();
 			cdForeColor = new ColorDialog();
+			LoadSettings();
 		}
 		void ShowControls(bool visible)
 		{
@@ -44,6 +42,46 @@ namespace WindowsForms
 		{
 			if (visible) AllocConsole();
 			else FreeConsole();
+		}
+		void SaveSettings()
+		{
+			StreamWriter settings = new StreamWriter("Settings.ini");
+			settings.WriteLine($"{this.Location.X}x{this.Location.Y}");
+			settings.WriteLine(cmTopmost.Checked);
+			settings.WriteLine(cmShowControls.Checked);
+			settings.WriteLine(cmDebugConsole.Checked);
+			settings.WriteLine(cmShowDate.Checked);
+			settings.WriteLine(cmShowWeekDay.Checked);
+			settings.WriteLine(cmLoadOnWindowsStartup.Checked);
+			settings.WriteLine(cdBackColor.Color.ToArgb());
+			settings.WriteLine(cdForeColor.Color.ToArgb());
+			settings.WriteLine(chooseFont.Filename);
+			settings.Close();
+		}
+		void LoadSettings()
+		{
+			StreamReader settings = new StreamReader("Settings.ini");
+			if (!settings.EndOfStream)
+			{
+				string location = settings.ReadLine();
+				this.Location = new Point
+					(
+					Convert.ToInt32(location.Split('x').First()),
+					Convert.ToInt32(location.Split('x').Last())
+					);
+				cmTopmost.Checked = bool.Parse(settings.ReadLine());
+				cmShowControls.Checked = bool.Parse(settings.ReadLine());
+				cmDebugConsole.Checked = bool.Parse(settings.ReadLine());
+				cmShowDate.Checked = bool.Parse(settings.ReadLine());
+				cmShowWeekDay.Checked = bool.Parse(settings.ReadLine());
+				cmLoadOnWindowsStartup.Checked = bool.Parse(settings.ReadLine());
+				cdBackColor.Color = labelCurrentTime.BackColor = Color.FromArgb(Convert.ToInt32(settings.ReadLine()));
+				cdForeColor.Color = labelCurrentTime.ForeColor = Color.FromArgb(Convert.ToInt32(settings.ReadLine()));
+				string font_name = settings.ReadLine();
+				chooseFont = new ChooseFont(this, font_name, 32);
+				labelCurrentTime.Font = chooseFont.Font;
+			}
+			settings.Close();
 		}
 		private void timer_Tick(object sender, EventArgs e)
 		{
@@ -104,16 +142,7 @@ namespace WindowsForms
 
 		private void cmShowWeekDay_CheckedChanged(object sender, EventArgs e)
 		{
-			cbShowWeekDay.Checked = cmShowWeekDay.Checked;
-		}
-		private void cbShowDate_CheckedChanged(object sender, EventArgs e)
-		{
-			cmShowDate.Checked = cbShowDate.Checked;
-		}
-
-		private void cbShowWeekDay_CheckedChanged(object sender, EventArgs e)
-		{
-			cmShowWeekDay.Checked = cbShowWeekDay.Checked;
+			cbShowWeekDay.Checked = cmShowDate.Checked;
 		}
 
 		private void cmBackColor_Click(object sender, EventArgs e)
@@ -134,50 +163,18 @@ namespace WindowsForms
 			labelCurrentTime.Font = chooseFont.Font;
 		}
 
-		private void MainForm_Load(object sender, EventArgs e)
+		private void cmLoadOnWindowsStartup_CheckedChanged(object sender, EventArgs e)
 		{
-			cmTopmost.Checked = Properties.Settings.Default.TopMost;
-			cmShowDate.Checked = Properties.Settings.Default.ShowDate;
-			cmShowWeekDay.Checked = Properties.Settings.Default.ShowWeekDay;
-			this.Location = Properties.Settings.Default.StartPosition;
-			labelCurrentTime.BackColor = Properties.Settings.Default.BackColor;
-			labelCurrentTime.ForeColor = Properties.Settings.Default.ForeColor;
-			labelCurrentTime.Font = Properties.Settings.Default.Font;
+			string key_name = "Clock_PD_411";
+			RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+			if (cmLoadOnWindowsStartup.Checked) key.SetValue(key_name, Application.ExecutablePath);
+			else key.DeleteValue(key_name, false);
+			key.Dispose();
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			Properties.Settings.Default.TopMost = this.TopMost;
-			Properties.Settings.Default.ShowDate = cbShowDate.Checked;
-			Properties.Settings.Default.ShowWeekDay = cbShowWeekDay.Checked;
-			Properties.Settings.Default.StartPosition = this.Location;
-			Properties.Settings.Default.BackColor = labelCurrentTime.BackColor;
-			Properties.Settings.Default.ForeColor = labelCurrentTime.ForeColor;
-			Properties.Settings.Default.Font = labelCurrentTime.Font;
-			Properties.Settings.Default.Save();
+			SaveSettings();
 		}
-
-		private void labelCurrentTime_MouseDown(object sender, MouseEventArgs e)
-		{
-			lbl_mouse_press = true;
-			cursorStartPoint = Cursor.Position;
-			lblStartPoint = this.Location;
-		}
-
-		private void labelCurrentTime_MouseMove(object sender, MouseEventArgs e)
-		{
-			if(lbl_mouse_press)
-			{
-				Point cursorOffsetPoint = new Point(Cursor.Position.X - cursorStartPoint.X, Cursor.Position.Y - cursorStartPoint.Y);
-				this.Location = new Point(lblStartPoint.X + cursorOffsetPoint.X, lblStartPoint.Y + cursorOffsetPoint.Y);
-			}
-		}
-
-		private void labelCurrentTime_MouseUp(object sender, MouseEventArgs e)
-		{
-			lbl_mouse_press = false;
-			cursorStartPoint = Point.Empty;
-		}
-
 	}
 }
