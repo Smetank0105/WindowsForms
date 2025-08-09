@@ -36,7 +36,6 @@ namespace WindowsForms
 			this.cmTopmost = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmShowControls = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmDebugConsole = new System.Windows.Forms.ToolStripMenuItem();
-			this.cmAutorun = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmShowDate = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmShowWeekDay = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,13 +44,16 @@ namespace WindowsForms
 			this.cmBackColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmForeColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.cmAutorun = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmClose = new System.Windows.Forms.ToolStripMenuItem();
 			this.timer = new System.Windows.Forms.Timer(this.components);
 			this.cbShowDate = new System.Windows.Forms.CheckBox();
 			this.cbShowWeekDay = new System.Windows.Forms.CheckBox();
 			this.btnHideControls = new System.Windows.Forms.Button();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+			this.cmAlarmsForm = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmMainMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -81,6 +83,8 @@ namespace WindowsForms
             this.cmShowDate,
             this.cmShowWeekDay,
             this.toolStripSeparator2,
+            this.cmAlarmsForm,
+            this.toolStripSeparator5,
             this.cmFont,
             this.cmBackColor,
             this.cmForeColor,
@@ -89,7 +93,7 @@ namespace WindowsForms
             this.toolStripSeparator4,
             this.cmClose});
 			this.cmMainMenu.Name = "cmMainMenu";
-			this.cmMainMenu.Size = new System.Drawing.Size(191, 270);
+			this.cmMainMenu.Size = new System.Drawing.Size(191, 298);
 			// 
 			// cmTopmost
 			// 
@@ -114,14 +118,6 @@ namespace WindowsForms
 			this.cmDebugConsole.Size = new System.Drawing.Size(190, 22);
 			this.cmDebugConsole.Text = "Console";
 			this.cmDebugConsole.CheckedChanged += new System.EventHandler(this.cmDebugConsole_CheckedChanged);
-			// 
-			// cmAutorun
-			// 
-			this.cmAutorun.CheckOnClick = true;
-			this.cmAutorun.Name = "cmAutorun";
-			this.cmAutorun.Size = new System.Drawing.Size(190, 22);
-			this.cmAutorun.Text = "Run on start Windows";
-			this.cmAutorun.CheckedChanged += new System.EventHandler(this.cmAutorun_CheckedChanged);
 			// 
 			// toolStripSeparator1
 			// 
@@ -174,6 +170,19 @@ namespace WindowsForms
 			// 
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
 			this.toolStripSeparator3.Size = new System.Drawing.Size(187, 6);
+			// 
+			// cmAutorun
+			// 
+			this.cmAutorun.CheckOnClick = true;
+			this.cmAutorun.Name = "cmAutorun";
+			this.cmAutorun.Size = new System.Drawing.Size(190, 22);
+			this.cmAutorun.Text = "Run on start Windows";
+			this.cmAutorun.CheckedChanged += new System.EventHandler(this.cmAutorun_CheckedChanged);
+			// 
+			// toolStripSeparator4
+			// 
+			this.toolStripSeparator4.Name = "toolStripSeparator4";
+			this.toolStripSeparator4.Size = new System.Drawing.Size(187, 6);
 			// 
 			// cmClose
 			// 
@@ -230,10 +239,17 @@ namespace WindowsForms
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
 			// 
-			// toolStripSeparator4
+			// cmAlarmsForm
 			// 
-			this.toolStripSeparator4.Name = "toolStripSeparator4";
-			this.toolStripSeparator4.Size = new System.Drawing.Size(187, 6);
+			this.cmAlarmsForm.Name = "cmAlarmsForm";
+			this.cmAlarmsForm.Size = new System.Drawing.Size(190, 22);
+			this.cmAlarmsForm.Text = "Alarms";
+			this.cmAlarmsForm.Click += new System.EventHandler(this.cmAlarmsForm_Click);
+			// 
+			// toolStripSeparator5
+			// 
+			this.toolStripSeparator5.Name = "toolStripSeparator5";
+			this.toolStripSeparator5.Size = new System.Drawing.Size(187, 6);
 			// 
 			// MainForm
 			// 
@@ -281,6 +297,8 @@ namespace WindowsForms
 		private System.Windows.Forms.ToolStripMenuItem cmClose;
 		private System.Windows.Forms.ToolStripMenuItem cmAutorun;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+		private System.Windows.Forms.ToolStripMenuItem cmAlarmsForm;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
 	}
 }
 

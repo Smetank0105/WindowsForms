@@ -18,6 +18,7 @@ namespace WindowsForms
 		ChooseFont chooseFont;
 		ColorDialog cdBackColor;
 		ColorDialog cdForeColor;
+		AlarmsForm alarmsForm;
 
 		bool lbl_mouse_press = false;
 		Point cursorStartPoint;
@@ -30,6 +31,7 @@ namespace WindowsForms
 			chooseFont = new ChooseFont();
 			cdBackColor = new ColorDialog();
 			cdForeColor = new ColorDialog();
+			alarmsForm = new AlarmsForm();
 		}
 		void ShowControls(bool visible)
 		{
@@ -194,6 +196,11 @@ namespace WindowsForms
 			if (cmAutorun.Checked) key.SetValue(key_name, Application.ExecutablePath);
 			else key.DeleteValue(key_name, false);
 			key.Dispose();
+		}
+
+		private void cmAlarmsForm_Click(object sender, EventArgs e)
+		{
+			alarmsForm.ShowDialog();
 		}
 	}
 }

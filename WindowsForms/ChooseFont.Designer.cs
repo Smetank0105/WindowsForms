@@ -131,6 +131,7 @@ namespace WindowsForms
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "ChooseFont";
+			this.TopMost = true;
 			((System.ComponentModel.ISupportInitialize)(this.nudFontSize)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
