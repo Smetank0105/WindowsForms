@@ -95,12 +95,49 @@ namespace WindowsForms.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Drawing.Font Font {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowControls {
             get {
-                return ((global::System.Drawing.Font)(this["Font"]));
+                return ((bool)(this["ShowControls"]));
             }
             set {
-                this["Font"] = value;
+                this["ShowControls"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Autorun {
+            get {
+                return ((bool)(this["Autorun"]));
+            }
+            set {
+                this["Autorun"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowConsole {
+            get {
+                return ((bool)(this["ShowConsole"]));
+            }
+            set {
+                this["ShowConsole"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FontName {
+            get {
+                return ((string)(this["FontName"]));
+            }
+            set {
+                this["FontName"] = value;
             }
         }
     }

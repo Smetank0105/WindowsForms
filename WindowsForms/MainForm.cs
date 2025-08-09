@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
+using Microsoft.Win32;
 
 namespace WindowsForms
 {
@@ -139,10 +140,14 @@ namespace WindowsForms
 			cmTopmost.Checked = Properties.Settings.Default.TopMost;
 			cmShowDate.Checked = Properties.Settings.Default.ShowDate;
 			cmShowWeekDay.Checked = Properties.Settings.Default.ShowWeekDay;
+			cmShowControls.Checked = Properties.Settings.Default.ShowControls;
+			cmDebugConsole.Checked = Properties.Settings.Default.ShowConsole;
 			this.Location = Properties.Settings.Default.StartPosition;
+			cmAutorun.Checked = Properties.Settings.Default.Autorun;
 			labelCurrentTime.BackColor = Properties.Settings.Default.BackColor;
 			labelCurrentTime.ForeColor = Properties.Settings.Default.ForeColor;
-			labelCurrentTime.Font = Properties.Settings.Default.Font;
+			chooseFont = new ChooseFont(this, Properties.Settings.Default.FontName, 32);
+			labelCurrentTime.Font = chooseFont.Font;
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -150,10 +155,13 @@ namespace WindowsForms
 			Properties.Settings.Default.TopMost = this.TopMost;
 			Properties.Settings.Default.ShowDate = cbShowDate.Checked;
 			Properties.Settings.Default.ShowWeekDay = cbShowWeekDay.Checked;
+			Properties.Settings.Default.ShowControls = cmShowControls.Checked;
+			Properties.Settings.Default.ShowConsole = cmDebugConsole.Checked;
 			Properties.Settings.Default.StartPosition = this.Location;
+			Properties.Settings.Default.Autorun = cmAutorun.Checked;
 			Properties.Settings.Default.BackColor = labelCurrentTime.BackColor;
 			Properties.Settings.Default.ForeColor = labelCurrentTime.ForeColor;
-			Properties.Settings.Default.Font = labelCurrentTime.Font;
+			Properties.Settings.Default.FontName = chooseFont.Filename;
 			Properties.Settings.Default.Save();
 		}
 
@@ -179,5 +187,13 @@ namespace WindowsForms
 			cursorStartPoint = Point.Empty;
 		}
 
+		private void cmAutorun_CheckedChanged(object sender, EventArgs e)
+		{
+			string key_name = "Clock_PD_411";
+			RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+			if (cmAutorun.Checked) key.SetValue(key_name, Application.ExecutablePath);
+			else key.DeleteValue(key_name, false);
+			key.Dispose();
+		}
 	}
 }

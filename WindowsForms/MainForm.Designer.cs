@@ -51,6 +51,7 @@ namespace WindowsForms
 			this.cbShowWeekDay = new System.Windows.Forms.CheckBox();
 			this.btnHideControls = new System.Windows.Forms.Button();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmMainMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -76,7 +77,6 @@ namespace WindowsForms
             this.cmTopmost,
             this.cmShowControls,
             this.cmDebugConsole,
-            this.cmAutorun,
             this.toolStripSeparator1,
             this.cmShowDate,
             this.cmShowWeekDay,
@@ -85,9 +85,11 @@ namespace WindowsForms
             this.cmBackColor,
             this.cmForeColor,
             this.toolStripSeparator3,
+            this.cmAutorun,
+            this.toolStripSeparator4,
             this.cmClose});
 			this.cmMainMenu.Name = "cmMainMenu";
-			this.cmMainMenu.Size = new System.Drawing.Size(191, 242);
+			this.cmMainMenu.Size = new System.Drawing.Size(191, 270);
 			// 
 			// cmTopmost
 			// 
@@ -119,6 +121,7 @@ namespace WindowsForms
 			this.cmAutorun.Name = "cmAutorun";
 			this.cmAutorun.Size = new System.Drawing.Size(190, 22);
 			this.cmAutorun.Text = "Run on start Windows";
+			this.cmAutorun.CheckedChanged += new System.EventHandler(this.cmAutorun_CheckedChanged);
 			// 
 			// toolStripSeparator1
 			// 
@@ -227,6 +230,11 @@ namespace WindowsForms
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
 			// 
+			// toolStripSeparator4
+			// 
+			this.toolStripSeparator4.Name = "toolStripSeparator4";
+			this.toolStripSeparator4.Size = new System.Drawing.Size(187, 6);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,6 +280,7 @@ namespace WindowsForms
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 		private System.Windows.Forms.ToolStripMenuItem cmClose;
 		private System.Windows.Forms.ToolStripMenuItem cmAutorun;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
 	}
 }
 
