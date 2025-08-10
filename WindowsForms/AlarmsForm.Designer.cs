@@ -37,18 +37,18 @@ namespace WindowsForms
 			// 
 			// dtpAlarmsForm
 			// 
-			this.dtpAlarmsForm.CustomFormat = "yyyy/MM/dd HH:mm";
+			this.dtpAlarmsForm.CustomFormat = "ddMMMMyyyy  HH:mm:ss";
 			this.dtpAlarmsForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.dtpAlarmsForm.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-			this.dtpAlarmsForm.Location = new System.Drawing.Point(182, 111);
+			this.dtpAlarmsForm.Location = new System.Drawing.Point(12, 12);
 			this.dtpAlarmsForm.Name = "dtpAlarmsForm";
 			this.dtpAlarmsForm.ShowUpDown = true;
-			this.dtpAlarmsForm.Size = new System.Drawing.Size(164, 29);
+			this.dtpAlarmsForm.Size = new System.Drawing.Size(259, 29);
 			this.dtpAlarmsForm.TabIndex = 0;
 			// 
 			// btnAlarmsFormAdd
 			// 
-			this.btnAlarmsFormAdd.Location = new System.Drawing.Point(216, 146);
+			this.btnAlarmsFormAdd.Location = new System.Drawing.Point(277, 11);
 			this.btnAlarmsFormAdd.Name = "btnAlarmsFormAdd";
 			this.btnAlarmsFormAdd.Size = new System.Drawing.Size(94, 30);
 			this.btnAlarmsFormAdd.TabIndex = 1;
@@ -59,18 +59,20 @@ namespace WindowsForms
 			// lbAlarmsForm
 			// 
 			this.lbAlarmsForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lbAlarmsForm.FormatString = "F";
 			this.lbAlarmsForm.FormattingEnabled = true;
 			this.lbAlarmsForm.ItemHeight = 24;
-			this.lbAlarmsForm.Location = new System.Drawing.Point(12, 12);
+			this.lbAlarmsForm.Location = new System.Drawing.Point(12, 47);
 			this.lbAlarmsForm.Name = "lbAlarmsForm";
-			this.lbAlarmsForm.Size = new System.Drawing.Size(164, 340);
+			this.lbAlarmsForm.Size = new System.Drawing.Size(259, 340);
 			this.lbAlarmsForm.TabIndex = 3;
+			this.lbAlarmsForm.DoubleClick += new System.EventHandler(this.lbAlarmsForm_DoubleClick);
 			// 
 			// AlarmsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(353, 366);
+			this.ClientSize = new System.Drawing.Size(379, 398);
 			this.Controls.Add(this.lbAlarmsForm);
 			this.Controls.Add(this.btnAlarmsFormAdd);
 			this.Controls.Add(this.dtpAlarmsForm);

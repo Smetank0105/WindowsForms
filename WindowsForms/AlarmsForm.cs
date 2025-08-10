@@ -12,21 +12,37 @@ namespace WindowsForms
 {
 	public partial class AlarmsForm : Form
 	{
-		List<string> alarmsList;
+		public List<DateTime> alarmsList;
 		public AlarmsForm()
 		{
 			InitializeComponent();
-			alarmsList = new List<string>();
+			alarmsList = new List<DateTime>();
+			ShowList();
 		}
-
+		public void ShowList()
+		{
+			lbAlarmsForm.Items.Clear();
+			if (alarmsList.Count > 0)
+			{
+				foreach (var item in alarmsList)
+				{
+					lbAlarmsForm.Items.Add(item);
+				} 
+			}
+		}
 		private void btnAlarmsFormAdd_Click(object sender, EventArgs e)
 		{
-			alarmsList.Add(dtpAlarmsForm.Text);
+			alarmsList.Add(dtpAlarmsForm.Value);
 			alarmsList.Sort();
-			lbAlarmsForm.Items.Clear();
-			foreach(var item in alarmsList)
+			ShowList();
+		}
+
+		private void lbAlarmsForm_DoubleClick(object sender, EventArgs e)
+		{
+			if (lbAlarmsForm.Items.Count > 0)
 			{
-				lbAlarmsForm.Items.Add(item);
+				alarmsList.RemoveAt(lbAlarmsForm.SelectedIndex);
+				lbAlarmsForm.Items.RemoveAt(lbAlarmsForm.SelectedIndex); 
 			}
 		}
 	}

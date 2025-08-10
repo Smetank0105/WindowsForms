@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
 using Microsoft.Win32;
+using System.Media;
 
 namespace WindowsForms
 {
@@ -19,6 +20,7 @@ namespace WindowsForms
 		ColorDialog cdBackColor;
 		ColorDialog cdForeColor;
 		AlarmsForm alarmsForm;
+		SoundPlayer sp;
 
 		bool lbl_mouse_press = false;
 		Point cursorStartPoint;
@@ -27,11 +29,12 @@ namespace WindowsForms
 		{
 			InitializeComponent();
 			ShowControls(cmShowControls.Checked);
-			//ShowConsole(cmDebugConsole.Checked = true);
+			ShowConsole(cmDebugConsole.Checked);
 			chooseFont = new ChooseFont();
 			cdBackColor = new ColorDialog();
 			cdForeColor = new ColorDialog();
 			alarmsForm = new AlarmsForm();
+			sp = new SoundPlayer(Properties.Resources.sound);
 		}
 		void ShowControls(bool visible)
 		{
@@ -41,7 +44,6 @@ namespace WindowsForms
 			this.ShowInTaskbar = visible;
 			this.TransparencyKey = visible ? Color.Empty : this.BackColor;
 			this.FormBorderStyle = visible ? FormBorderStyle.FixedToolWindow : FormBorderStyle.None;
-			//this.labelCurrentTime.BackColor = visible ? this.BackColor : Color.DeepSkyBlue;
 		}
 		void ShowConsole(bool visible)
 		{
@@ -56,6 +58,15 @@ namespace WindowsForms
 			if (cbShowWeekDay.Checked)
 				labelCurrentTime.Text += $"\n{DateTime.Now.DayOfWeek}";
 			notifyIcon.Text = labelCurrentTime.Text;
+
+			if (alarmsForm.alarmsList.Count > 0 && alarmsForm.alarmsList[0] <= DateTime.Now)
+			{
+				alarmsForm.alarmsList.RemoveAt(0);
+				alarmsForm.ShowList();
+				sp.PlayLooping();
+				DialogResult result = MessageBox.Show("Turn off the Alarm!", "Alarm", MessageBoxButtons.OK);
+				if (result == DialogResult.OK) sp.Stop();
+			}
 		}
 
 		private void btnHideControls_Click(object sender, EventArgs e)
