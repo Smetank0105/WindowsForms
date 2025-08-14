@@ -78,6 +78,7 @@ namespace WindowsForms
 			this.Controls.Add(this.btnAlarmsFormAdd);
 			this.Controls.Add(this.dtpAlarmsForm);
 			this.DoubleBuffered = true;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "AlarmsForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

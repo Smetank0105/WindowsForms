@@ -21,6 +21,7 @@ namespace WindowsForms
 		ColorDialog cdBackColor;
 		ColorDialog cdForeColor;
 		AlarmsForm alarmsForm;
+		TimerForm timerForm;
 		SoundPlayer sp;
 
 		bool lbl_mouse_press = false;
@@ -35,6 +36,7 @@ namespace WindowsForms
 			cdBackColor = new ColorDialog();
 			cdForeColor = new ColorDialog();
 			alarmsForm = new AlarmsForm();
+			timerForm = new TimerForm();
 			sp = new SoundPlayer(Properties.Resources.sound);
 		}
 		void ShowControls(bool visible)
@@ -229,6 +231,11 @@ namespace WindowsForms
 		private void cmAlarmsForm_Click(object sender, EventArgs e)
 		{
 			alarmsForm.ShowDialog();
+		}
+
+		private void cmTimer_Click(object sender, EventArgs e)
+		{
+			timerForm.ShowDialog();
 		}
 	}
 }
