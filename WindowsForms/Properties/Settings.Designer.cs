@@ -140,5 +140,16 @@ namespace WindowsForms.Properties {
                 this["FontName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection AlarmsList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["AlarmsList"]));
+            }
+            set {
+                this["AlarmsList"] = value;
+            }
+        }
     }
 }

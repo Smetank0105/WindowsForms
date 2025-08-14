@@ -33,6 +33,7 @@ namespace WindowsForms
 			this.dtpAlarmsForm = new System.Windows.Forms.DateTimePicker();
 			this.btnAlarmsFormAdd = new System.Windows.Forms.Button();
 			this.lbAlarmsForm = new System.Windows.Forms.ListBox();
+			this.fontDialog1 = new System.Windows.Forms.FontDialog();
 			this.SuspendLayout();
 			// 
 			// dtpAlarmsForm
@@ -91,5 +92,6 @@ namespace WindowsForms
 		private System.Windows.Forms.DateTimePicker dtpAlarmsForm;
 		private System.Windows.Forms.Button btnAlarmsFormAdd;
 		private System.Windows.Forms.ListBox lbAlarmsForm;
+		private System.Windows.Forms.FontDialog fontDialog1;
 	}
 }

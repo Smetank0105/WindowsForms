@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using Microsoft.Win32;
 using System.Media;
+using System.Collections.Specialized;
 
 namespace WindowsForms
 {
@@ -161,6 +162,14 @@ namespace WindowsForms
 			labelCurrentTime.ForeColor = Properties.Settings.Default.ForeColor;
 			chooseFont = new ChooseFont(this, Properties.Settings.Default.FontName, 32);
 			labelCurrentTime.Font = chooseFont.Font;
+			if(Properties.Settings.Default.AlarmsList.Count > 0)
+			{
+				foreach(var item in Properties.Settings.Default.AlarmsList)
+				{
+					alarmsForm.alarmsList.Add(DateTime.ParseExact(item, "dd/MM/yyyy HH:mm:ss", null));
+				}
+				alarmsForm.ShowList();
+			}
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -175,6 +184,14 @@ namespace WindowsForms
 			Properties.Settings.Default.BackColor = labelCurrentTime.BackColor;
 			Properties.Settings.Default.ForeColor = labelCurrentTime.ForeColor;
 			Properties.Settings.Default.FontName = chooseFont.Filename;
+			Properties.Settings.Default.AlarmsList = new StringCollection();
+			if(alarmsForm.alarmsList.Count > 0)
+			{
+				foreach(var item in alarmsForm.alarmsList)
+				{
+					Properties.Settings.Default.AlarmsList.Add(item.ToString("dd/MM/yyyy HH:mm:ss"));
+				}
+			}
 			Properties.Settings.Default.Save();
 		}
 
