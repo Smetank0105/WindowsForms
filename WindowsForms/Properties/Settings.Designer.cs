@@ -151,5 +151,17 @@ namespace WindowsForms.Properties {
                 this["AlarmsList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AlarmSound {
+            get {
+                return ((string)(this["AlarmSound"]));
+            }
+            set {
+                this["AlarmSound"] = value;
+            }
+        }
     }
 }

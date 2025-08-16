@@ -103,6 +103,8 @@ namespace WindowsForms
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Alarms";
 			this.TopMost = true;
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AlarmsForm_FormClosing);
+			this.Load += new System.EventHandler(this.AlarmsForm_Load);
 			this.ResumeLayout(false);
 
 		}

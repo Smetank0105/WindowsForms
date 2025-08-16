@@ -8,19 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.IO;
 
 namespace WindowsForms
 {
 	public partial class AlarmsForm : Form
 	{
 		ChooseSound chooseSound;
-		SoundPlayer sp;
 		public List<DateTime> alarmsList;
 		public AlarmsForm()
 		{
 			InitializeComponent();
 			chooseSound = new ChooseSound();
-			sp = new SoundPlayer(Properties.Resources.sound);
 			alarmsList = new List<DateTime>();
 			ShowList();
 		}
@@ -62,10 +61,27 @@ namespace WindowsForms
 			{
 				alarmsList.RemoveAt(0);
 				ShowList();
-				sp.PlayLooping();
+				chooseSound.sp.PlayLooping();
 				DialogResult result = MessageBox.Show("Turn off the Alarm!", "Alarm", MessageBoxButtons.OK);
-				if (result == DialogResult.OK) sp.Stop();
+				if (result == DialogResult.OK) chooseSound.sp.Stop();
 			}
+		}
+
+		private void AlarmsForm_Load(object sender, EventArgs e)
+		{
+			if (File.Exists(Properties.Settings.Default.AlarmSound))
+			{
+				chooseSound.sound_path = Properties.Settings.Default.AlarmSound;
+				chooseSound.sp = new SoundPlayer(chooseSound.sound_path);
+			}
+			else
+				chooseSound.sp = new SoundPlayer(Properties.Resources.sound);
+		}
+
+		private void AlarmsForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			Properties.Settings.Default.AlarmSound = chooseSound.sound_path;
+			Properties.Settings.Default.Save();
 		}
 	}
 }
