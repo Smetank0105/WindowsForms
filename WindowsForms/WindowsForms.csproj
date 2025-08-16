@@ -58,6 +58,12 @@
     <Compile Include="ChooseFont.Designer.cs">
       <DependentUpon>ChooseFont.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChooseSound.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseSound.Designer.cs">
+      <DependentUpon>ChooseSound.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChooseFont.resx">
       <DependentUpon>ChooseFont.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseSound.resx">
+      <DependentUpon>ChooseSound.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

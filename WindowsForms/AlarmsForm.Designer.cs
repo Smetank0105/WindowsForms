@@ -29,11 +29,14 @@ namespace WindowsForms
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlarmsForm));
 			this.dtpAlarmsForm = new System.Windows.Forms.DateTimePicker();
 			this.btnAlarmsFormAdd = new System.Windows.Forms.Button();
 			this.lbAlarmsForm = new System.Windows.Forms.ListBox();
 			this.fontDialog1 = new System.Windows.Forms.FontDialog();
+			this.btnAlarmsFormSound = new System.Windows.Forms.Button();
+			this.timer = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
 			// 
 			// dtpAlarmsForm
@@ -69,11 +72,27 @@ namespace WindowsForms
 			this.lbAlarmsForm.TabIndex = 3;
 			this.lbAlarmsForm.DoubleClick += new System.EventHandler(this.lbAlarmsForm_DoubleClick);
 			// 
+			// btnAlarmsFormSound
+			// 
+			this.btnAlarmsFormSound.Location = new System.Drawing.Point(277, 47);
+			this.btnAlarmsFormSound.Name = "btnAlarmsFormSound";
+			this.btnAlarmsFormSound.Size = new System.Drawing.Size(94, 30);
+			this.btnAlarmsFormSound.TabIndex = 4;
+			this.btnAlarmsFormSound.Text = "Sounds";
+			this.btnAlarmsFormSound.UseVisualStyleBackColor = true;
+			this.btnAlarmsFormSound.Click += new System.EventHandler(this.btnAlarmsFormSound_Click);
+			// 
+			// timer
+			// 
+			this.timer.Enabled = true;
+			this.timer.Tick += new System.EventHandler(this.timer_Tick);
+			// 
 			// AlarmsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(379, 398);
+			this.Controls.Add(this.btnAlarmsFormSound);
 			this.Controls.Add(this.lbAlarmsForm);
 			this.Controls.Add(this.btnAlarmsFormAdd);
 			this.Controls.Add(this.dtpAlarmsForm);
@@ -94,5 +113,7 @@ namespace WindowsForms
 		private System.Windows.Forms.Button btnAlarmsFormAdd;
 		private System.Windows.Forms.ListBox lbAlarmsForm;
 		private System.Windows.Forms.FontDialog fontDialog1;
+		private System.Windows.Forms.Button btnAlarmsFormSound;
+		private System.Windows.Forms.Timer timer;
 	}
 }

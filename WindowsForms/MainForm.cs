@@ -22,7 +22,6 @@ namespace WindowsForms
 		ColorDialog cdForeColor;
 		AlarmsForm alarmsForm;
 		TimerForm timerForm;
-		SoundPlayer sp;
 
 		bool lbl_mouse_press = false;
 		Point cursorStartPoint;
@@ -37,7 +36,6 @@ namespace WindowsForms
 			cdForeColor = new ColorDialog();
 			alarmsForm = new AlarmsForm();
 			timerForm = new TimerForm();
-			sp = new SoundPlayer(Properties.Resources.sound);
 		}
 		void ShowControls(bool visible)
 		{
@@ -61,15 +59,6 @@ namespace WindowsForms
 			if (cbShowWeekDay.Checked)
 				labelCurrentTime.Text += $"\n{DateTime.Now.DayOfWeek}";
 			notifyIcon.Text = labelCurrentTime.Text;
-
-			if (alarmsForm.alarmsList.Count > 0 && alarmsForm.alarmsList[0] <= DateTime.Now)
-			{
-				alarmsForm.alarmsList.RemoveAt(0);
-				alarmsForm.ShowList();
-				sp.PlayLooping();
-				DialogResult result = MessageBox.Show("Turn off the Alarm!", "Alarm", MessageBoxButtons.OK);
-				if (result == DialogResult.OK) sp.Stop();
-			}
 		}
 
 		private void btnHideControls_Click(object sender, EventArgs e)
